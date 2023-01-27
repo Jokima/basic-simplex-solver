@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import YASMIJ from '../YASMIJ.js/dist/yasmij';
+import YASMIJ from '../assets/YASMIJ.js';
 
 @Component({
   selector: 'app-root',
