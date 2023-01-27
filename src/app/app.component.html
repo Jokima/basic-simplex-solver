@@ -1,0 +1,70 @@
+<main class="Simplex" *ngIf="!resultado">
+  <h3>Resolução Simplex</h3>
+  <section class="Simplex__Objetivo">
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo</mat-label>
+      <mat-select multiple="false" [(ngModel)]="tipoSelecionado">
+        <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">{{
+          tipo.label
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Função objetivo</mat-label>
+      <input
+        matInput
+        placeholder="ex: x1 + 2x2 - x3"
+        [(ngModel)]="funcaoObjetivo"
+      />
+    </mat-form-field>
+  </section>
+  <section class="Simplex__Restricoes">
+    <div class="Simplex__Restricoes__Acao">
+      <button mat-raised-button color="primary" (click)="adicionarRestricao()">
+        Adicionar restrição
+      </button>
+      <button mat-raised-button color="warn" (click)="removerRestricao()">
+        Remover restrição
+      </button>
+    </div>
+    <div class="Simplex__Restricoes__Campos">
+      <mat-form-field
+        class="example-full-width"
+        *ngFor="let restricao of restricoes; let i = index"
+      >
+        <mat-label>Sujeito a</mat-label>
+        <input
+          matInput
+          placeholder="ex: x1 + 2x2 <= 15"
+          [(ngModel)]="restricao.valor"
+        />
+      </mat-form-field>
+    </div>
+  </section>
+  <div class="Simplex__Acoes">
+    <button mat-raised-button color="primary" (click)="resolverSimplex()">
+      Resolver
+    </button>
+    <button mat-raised-button color="warn" (click)="limpar()">
+      Limpar
+    </button>
+  </div>
+</main>
+
+<main class="Simplex" *ngIf="resultado">
+  <h3>Resolução Simplex</h3>
+  <div class="Simplex__Resultado__Objetivo">
+    <b>{{ tipoSelecionado === "minimize" ? "Minimizar" : "Maximizar" }}:</b>
+    {{ funcaoObjetivo }}
+  </div>
+  <div class="Simplex__Resultado__SujeitoA">
+    <b>Sujeito a:</b>
+    <p *ngFor="let restricao of restricoes">
+      {{restricao.valor}}
+    </p>
+  </div>
+  <div class="Simplex__Resultado"><b>Resultado:</b> {{ resultado }}</div>
+  <button mat-raised-button color="primary" (click)="resultado = ''">
+    Voltar
+  </button>
+</main>
